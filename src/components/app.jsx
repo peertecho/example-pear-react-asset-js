@@ -1,19 +1,10 @@
 import { useEffect } from "react"
 
-const clientId = JSON.parse(Pear.argv[Pear.argv.length - 1]).id
-
-const fetchAsset = async (path, type = 'text') => {
-  const res = await fetch(`${window.location.origin}/${path}`, {
-    headers: { 'User-Agent': `Pear ${clientId}` }
-  })
-  return type === 'text' ? res.text() : res.json()
-}
-
 export default function App () {
   useEffect(() => {
-    fetchAsset('package.json', 'json').then(console.log)
-    fetchAsset('index.html').then(console.log)
-    fetchAsset('src/root.jsx').then(console.log)
+    fetch(`${window.location.origin}/package.json`).then(res => res.json()).then(console.log)
+    fetch(`${window.location.origin}/index.html`).then(res => res.text()).then(console.log)
+    fetch(`${window.location.origin}/src/root.jsx`).then(res => res.text()).then(console.log)
   }, []);
 
   return (
